@@ -48,6 +48,20 @@ internal class Program
                 //aggiunta di una stringa
                 case 1:
 
+                    Console.Write("Inserire una nuovo nome di un animale: ");
+                    temp = Console.ReadLine();
+
+                    //chiamata alla funzione di aggiunta
+                    if (agg(ref array, temp, ref dim))
+                    {
+                        Console.WriteLine("Elemento inserito");
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("Array pieno");
+                    }
+
                     break;
 
                 //cancellazione di una stringa
@@ -93,5 +107,26 @@ internal class Program
 
         } while (scelta == 10);
 
+    }
+
+    //funzione di aggiunta
+    static bool agg (ref string[] array, string temp, ref int index)
+    {
+        //dichiarazione variabile booleana per controllare se l'array è pieno o meno
+        bool pienezza = true;
+
+        //controllo riempimento array
+        if (index < array.Length)
+        {
+            array[index] = (temp);
+            index++;
+        }
+        else
+        {
+            pienezza = false;
+        }
+
+        //ritornare il valore della variabile booleana
+        return pienezza;
     }
 }
