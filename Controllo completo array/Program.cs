@@ -18,7 +18,7 @@ internal class Program
         int dim = 0;
         int a, b;
 
-        //variabile temporanea per l'aggiunta di un valore
+        //variabile temporanea
         string temp;
 
         //grandezza array
@@ -51,7 +51,7 @@ internal class Program
                     Console.Write("Inserire una nuovo nome di un animale: ");
                     temp = Console.ReadLine();
 
-                    //chiamata alla funzione di aggiunta
+                    //chiamata alla funzione di aggiunta e controllo se l'array è pieno
                     if (agg(ref array, temp, ref dim))
                     {
                         Console.WriteLine("Elemento inserito");
@@ -66,6 +66,19 @@ internal class Program
 
                 //cancellazione di una stringa
                 case 2:
+
+                    Console.Write("Inserire la stringa da eliminare: ");
+                    temp = Console.ReadLine();
+
+                    //chiamata alla funzione di cancellazione e controllo se l'elemento esiste nell'array o meno
+                    if (canc(ref array, temp, ref dim))
+                    {
+                        Console.WriteLine("L'elemento è stato cancellato correttamente");
+                    }
+                    else
+                    {
+                        Console.WriteLine("L'elemento non esisteva nell'array, non è stato peciò cancellato");
+                    }
 
                     break;
 
@@ -128,5 +141,34 @@ internal class Program
 
         //ritornare il valore della variabile booleana
         return pienezza;
+    }
+
+    //funzione di cancellamento
+    static bool canc (ref string[] array, string temp, ref int index)
+    {
+        //dichiarazione variabile booleana per la conferma dell'esistenza della stringa
+        bool esistenza = false;
+
+        //ciclo di controllo e cancellazione
+        for (int i = 0; i < index; i++)
+        {
+            if (array[i] == temp)
+            {
+
+                index--;
+                //ciclo di spostamento dei valori per la cancellazione
+                for (int j = i; j < array.Length - 1; j++)
+                {
+                    array[j] = array[j + 1];
+                }
+
+                esistenza = true;
+
+                break;
+            }
+        }
+
+        //ritornare il valore della variabile booleana
+        return esistenza;
     }
 }
