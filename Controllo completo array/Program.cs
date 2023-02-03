@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 internal class Program
@@ -28,17 +29,20 @@ internal class Program
         //inserimento animali
         for (int i = 0; i < dim; i++)
         {
+            Console.Clear();                                        //cancellamento della console
             Console.WriteLine("Inserisci il nome di un animale: ");
             array[i] = Console.ReadLine();
-            Console.Clear();                                        //cancellamento della console
         }
+
+        //cancellamento della console
+        Console.Clear();
 
         //Ciclo del Menà
         do
         {
             //inserimento scelta per il menù
             Console.WriteLine("Premere uno dei seguenti tasti per selezionare l'operazione desiderata:");
-            Console.Write("1 - aggiunta stringa \n2 - cancellazione di una stringa \n3 - ordinamento array \n4 - ricerca sequenziale di una stringa \n5 - Visualizzazione degli animali ripetuti \n6 - modifica di una stringa \n7 - visualizzazione dell'array \n8 - ricerca del nome più lungo e più corto \n9 - cancellazione delle copie \n10 - Uscità dal menù");
+            Console.Write("1 - aggiunta stringa \n2 - cancellazione di una stringa \n3 - ordinamento array \n4 - ricerca sequenziale di una stringa \n5 - Visualizzazione degli animali ripetuti \n6 - modifica di una stringa \n7 - visualizzazione dell'array \n8 - ricerca del nome più lungo e più corto \n9 - cancellazione delle copie \n10 - Uscità dal menù \n");
             scelta = int.Parse(Console.ReadLine());
             Console.Clear();                                        //cancellamento della console
 
@@ -48,7 +52,7 @@ internal class Program
                 //aggiunta di una stringa
                 case 1:
 
-                    Console.Write("Inserire una nuovo nome di un animale: ");
+                    Console.Write("Inserire il nome di un animale: ");
                     temp = Console.ReadLine();
 
                     //chiamata alla funzione di aggiunta e controllo se l'array è pieno
@@ -85,6 +89,9 @@ internal class Program
                 //ordinamento array in ordine alfabetico
                 case 3:
 
+                    //richiamo funzione di ordinamento
+                    bubblesort(dim, ref array);
+
                     break;
 
                 //ricerca di una stringa
@@ -105,6 +112,8 @@ internal class Program
                 //visualizzazione dell'array
                 case 7:
 
+                    //richiamo alla funzione di visualizzazione
+                    visualizza(dim, array);
                     break;
 
                 //ricerca del nome più lungo e corto
@@ -118,7 +127,10 @@ internal class Program
                     break;
             }
 
-        } while (scelta == 10);
+            //cancellamento della console
+            Console.Clear();
+
+        } while (scelta != 10);
 
     }
 
@@ -171,4 +183,37 @@ internal class Program
         //ritornare il valore della variabile booleana
         return esistenza;
     }
+
+    //funzione di ordinamento
+    static int bubblesort (int dim, ref string[] array)
+    {
+        //dichiarazione variabile temporanea
+        int temp;
+
+        //ciclo di ordinamento
+        for (int i = 0; i < dim - 1; i++)
+        {
+            for (int j = 0; j < dim - 1 - i; j++)
+            {
+                //trasferimento del primo carattere di ogni stringa in una variabile apposita per l'ordinamento
+                char first1 = array[j].FirstOrDefault();
+                char first2 = array[j+1].FirstOrDefault();
+
+                //conversione del carattere in ASCII per controllo
+                int firs1 = (int)first1;
+                int firs2 = (int)first2;
+
+                //controllo per ordinamento alfabetico
+                if(firs1 > firs2)
+                {
+                    temp = firs1;
+                    firs1 = firs2;
+                    firs2 = temp;
+                }
+            }
+        }
+        return 0;
+    }
+
+
 }
