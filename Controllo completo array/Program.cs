@@ -17,14 +17,17 @@ internal class Program
 
         //dichiarazione variabili
         int dim = 0;
-        int a, b;
 
         //variabile temporanea
         string temp;
 
-        //grandezza array
-        Console.Write("Inserire quante celle dell'array si vogliono utilizzare (massimo 100): ");
-        dim = int.Parse(Console.ReadLine());                        //inserimento dei valori che si vogliono utilizzare
+        //grandezza array e verifica che sia minore di 100
+        do
+        {
+            Console.Write("Inserire quante celle dell'array si vogliono utilizzare: ");
+            dim = int.Parse(Console.ReadLine());                        //inserimento dei valori che si vogliono utilizzare
+        } while (dim < array.Length);
+
 
         //inserimento animali
         for (int i = 0; i < dim; i++)
@@ -66,6 +69,8 @@ internal class Program
                         Console.WriteLine("Array pieno");
                     }
 
+                    Thread.Sleep(2500);
+
                     break;
 
                 //cancellazione di una stringa
@@ -83,6 +88,8 @@ internal class Program
                     {
                         Console.WriteLine("L'elemento non esisteva nell'array, non è stato peciò cancellato");
                     }
+
+                    Thread.Sleep(2500);
 
                     break;
 
@@ -102,7 +109,7 @@ internal class Program
                     temp = Console.ReadLine();
 
                     //variabile posizione ricercata
-                    int pos;
+                    int pos = 0;
 
                     if (search(ref pos, temp, array, dim))
                     {
@@ -112,6 +119,8 @@ internal class Program
                     {
                         Console.WriteLine("La stringa inserita non esiste, non è stato perciò possibile individuarla");
                     }
+
+                    Thread.Sleep(2500);
 
                     break;
 
@@ -214,11 +223,6 @@ internal class Program
                 //trasferimento del primo carattere di ogni stringa in una variabile apposita per l'ordinamento
                 int first1 = (int)array[j].FirstOrDefault();
                 int first2 = (int)array[j+1].FirstOrDefault();
-
-                Console.WriteLine(first2);
-                Console.WriteLine(first1);
-                Thread.Sleep(1000);
-
                 //controllo per ordinamento alfabetico
                 if (first1 > first2)
                 {
