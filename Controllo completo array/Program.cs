@@ -97,6 +97,22 @@ internal class Program
                 //ricerca di una stringa
                 case 4:
 
+                    //acquisizione della stringa da ricercare
+                    Console.Write("Inserisci la stringa che si vuole ricercare: ");
+                    temp = Console.ReadLine();
+
+                    //variabile posizione ricercata
+                    int pos;
+
+                    if (search(ref pos, temp, array, dim))
+                    {
+                        Console.WriteLine($"L'elemento si trovava in posizione {pos + 1}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("La stringa inserita non esiste, non è stato perciò possibile individuarla");
+                    }
+
                     break;
 
                 //visualizzazione delle stringhe ripetute
@@ -214,6 +230,28 @@ internal class Program
             }
         }
         return 0;
+    }
+
+    //funzione di ricerca sequenziale
+    static bool search(ref int pos, string temp, string[] array, int dim )
+    {
+        //variabile che dichiara l'esistenza della stringa inserita
+        bool esistenza = true;
+
+        for (int i = 0; i < dim; i++)
+        {
+            //controllo se le stringhe sono uguali
+            if (String.Compare(temp, array[i]) == 0)
+            {
+                //nel caso fosse vero trasferisco il valore di i nella variabile pos e ritorno il valore di esistenza per il controllo dell'esistenza della stringa inserita
+                pos = i;
+                return esistenza;
+            }
+        }
+
+        //nel caso non viene trovata la stringa inserita cambierò in falso il valore della variabile booleana e ritorno il valore di esistenza per il controllo dell'esistenza della stringa inserita
+        esistenza = false;
+        return esistenza;
     }
 
     //funzione di visualizzazione
