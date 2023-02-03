@@ -188,32 +188,43 @@ internal class Program
     static int bubblesort (int dim, ref string[] array)
     {
         //dichiarazione variabile temporanea
-        int temp;
+        string temp;
 
         //ciclo di ordinamento
         for (int i = 0; i < dim - 1; i++)
         {
-            for (int j = 0; j < dim - 1 - i; j++)
+            for (int j = 0; j < dim - 1; j++)
             {
                 //trasferimento del primo carattere di ogni stringa in una variabile apposita per l'ordinamento
-                char first1 = array[j].FirstOrDefault();
-                char first2 = array[j+1].FirstOrDefault();
+                int first1 = (int)array[j].FirstOrDefault();
+                int first2 = (int)array[j+1].FirstOrDefault();
 
-                //conversione del carattere in ASCII per controllo
-                int firs1 = (int)first1;
-                int firs2 = (int)first2;
+                Console.WriteLine(first2);
+                Console.WriteLine(first1);
+                Thread.Sleep(1000);
 
                 //controllo per ordinamento alfabetico
-                if(firs1 > firs2)
+                if (first1 > first2)
                 {
-                    temp = firs1;
-                    firs1 = firs2;
-                    firs2 = temp;
+                    //scambio valori
+                    temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
                 }
             }
         }
         return 0;
     }
 
+    //funzione di visualizzazione
+    static int visualizza(int dim, string[] array)
+    {
+        for (int i = 0; i < dim; i++)
+        {
+            Console.Write($"    {array[i]}");
+        }
 
+        Thread.Sleep(2500);
+        return 0;
+    }
 }
