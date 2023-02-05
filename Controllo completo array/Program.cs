@@ -26,7 +26,7 @@ internal class Program
         {
             Console.Write("Inserire quante celle dell'array si vogliono utilizzare: ");
             dim = int.Parse(Console.ReadLine());                        //inserimento dei valori che si vogliono utilizzare
-        } while (dim < array.Length);
+        } while (dim > array.Length);
 
 
         //inserimento animali
@@ -132,6 +132,25 @@ internal class Program
                 //modifica di una stringa
                 case 6:
 
+                    //variabile ricerca posizione
+                    int posiz = 0;
+
+                    Console.WriteLine("Inserisci la stringa che vuoi che venga modificata: ");
+                    temp = Console.ReadLine();
+
+                    if (search(ref posiz, temp, array, dim))
+                    {
+                        Console.WriteLine("Modifica la stringa: ");
+                        array[posiz] = Console.ReadLine();
+                        Console.WriteLine("L'elemento è stato modificato correttamente");
+                    }
+                    else
+                    {
+                        Console.WriteLine("La stringa inserita non esiste, non è stato perciò possibile individuarla e modificarla");
+                    }
+
+                    Thread.Sleep(2500);
+
                     break;
 
                 //visualizzazione dell'array
@@ -157,6 +176,7 @@ internal class Program
 
         } while (scelta != 10);
 
+        Console.WriteLine("Programma terminato\n\n\n\n\n\n\n\n");
     }
 
     //funzione di aggiunta
