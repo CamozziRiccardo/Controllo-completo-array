@@ -45,8 +45,8 @@ internal class Program
         do
         {
             //inserimento scelta per il menù
-            Console.WriteLine("Premere uno dei seguenti tasti per selezionare l'operazione desiderata:");
             Console.Write("1 - aggiunta stringa \n2 - cancellazione della prima stringa di un nome di animale \n3 - ordinamento array \n4 - ricerca sequenziale di una stringa \n5 - Visualizzazione degli animali ripetuti \n6 - modifica di una stringa \n7 - visualizzazione dell'array \n8 - ricerca del nome più lungo e più corto \n9 - cancellazione di tutte le stringhe di un nome di animale \n10 - Uscità dal menù \n");
+            Console.WriteLine("Premere uno dei seguenti tasti per selezionare l'operazione desiderata:");
             scelta = int.Parse(Console.ReadLine());
             Console.Clear();                                        //cancellamento della console
 
@@ -216,6 +216,15 @@ internal class Program
 
                 //cancellazione di tutte le stringhe uguali
                 case 9:
+
+                    Console.Write("Inserire la stringa da eliminare: ");
+                    temp = Console.ReadLine();
+
+                    //creazione di un ciclo che richiami la funzione di cancellamento per cancellare una parola più volte
+                    for (int i = 0; i < dim; i++)
+                    {
+                        Canc(ref array, temp, ref dim);
+                    }
 
                     break;
             }
@@ -420,8 +429,8 @@ internal class Program
         }
 
         //inserimento della stringa nell'indice 0 della copia in Short e della stringa nell'indice equivalente a dim in Long
-        Short = copia[0];
-        Long = copia[dim - 1];
+        Short = copia[dim - 1];
+        Long = copia[0];
 
         //ritorno al programma principale
         return 0;
