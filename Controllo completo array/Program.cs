@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -45,7 +46,7 @@ internal class Program
         {
             //inserimento scelta per il menù
             Console.WriteLine("Premere uno dei seguenti tasti per selezionare l'operazione desiderata:");
-            Console.Write("1 - aggiunta stringa \n2 - cancellazione di una stringa \n3 - ordinamento array \n4 - ricerca sequenziale di una stringa \n5 - Visualizzazione degli animali ripetuti \n6 - modifica di una stringa \n7 - visualizzazione dell'array \n8 - ricerca del nome più lungo e più corto \n9 - cancellazione delle copie \n10 - Uscità dal menù \n");
+            Console.Write("1 - aggiunta stringa \n2 - cancellazione della prima stringa di un nome di animale \n3 - ordinamento array \n4 - ricerca sequenziale di una stringa \n5 - Visualizzazione degli animali ripetuti \n6 - modifica di una stringa \n7 - visualizzazione dell'array \n8 - ricerca del nome più lungo e più corto \n9 - cancellazione di tutte le stringhe di un nome di animale \n10 - Uscità dal menù \n");
             scelta = int.Parse(Console.ReadLine());
             Console.Clear();                                        //cancellamento della console
 
@@ -127,6 +128,38 @@ internal class Program
                 //visualizzazione delle stringhe ripetute
                 case 5:
 
+                    //variabile che conta il numero di ripetizioni
+                    int ripetizioni = 0;
+
+                    //array di stringhe che segna i nomi delle variabili ripetute
+                    string[] name = new string[dim];
+
+                    //controllo che ci siano delle ripetizione all'intenro dell'array
+                    if(rip(array, dim, ref ripetizioni, ref name))
+                    {
+                        contarip();
+                        Console.Write("I nomi di animali ripetuti sono ");
+                        for (int i = 0; i < ripetizioni; i++)
+                        {
+                            Console.Write($"{name[i]} ");
+                            if (i + 1 == ripetizioni)
+                            {
+                                Console.Write("e ");
+                            }
+                            else
+                            {
+                                Console.Write(", ");
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Non sono state trovate ripetizioni all'interno dell'array");
+                    }
+
+                    Thread.Sleep(2500);
+
                     break;
 
                 //modifica di una stringa
@@ -175,8 +208,6 @@ internal class Program
             Console.Clear();
 
         } while (scelta != 10);
-
-        Console.WriteLine("Programma terminato\n\n\n\n\n\n\n\n");
     }
 
     //funzione di aggiunta
@@ -267,15 +298,54 @@ internal class Program
             //controllo se le stringhe sono uguali
             if (String.Compare(temp, array[i]) == 0)
             {
-                //nel caso fosse vero trasferisco il valore di i nella variabile pos e ritorno il valore di esistenza per il controllo dell'esistenza della stringa inserita
+                //nel caso fosse vero trasferisco il valore di i nella variabile pos e ne ritorno il valore per il controllo
                 pos = i;
                 return esistenza;
             }
         }
 
-        //nel caso non viene trovata la stringa inserita cambierò in falso il valore della variabile booleana e ritorno il valore di esistenza per il controllo dell'esistenza della stringa inserita
+        //nel caso non viene trovata la stringa inserita cambierò in falso il valore della variabile booleana e ne ritorno il valore per il controllo
         esistenza = false;
         return esistenza;
+    }
+
+    //funzione che segna le ripetizioni all'interno dell'array
+    static bool rip(string[] array, int dim, ref int rip, ref string[] name)
+    {
+        //variabile che dichiara l'esistenza di ripetizione all'interno dell'array
+        bool ripetizioni = true;
+
+        //ciclo di controllo ripetizione
+        for (int i = 0; i < dim; i++)
+        {
+            for (int j = 0; j < dim; j++)
+            {
+                //nel caso i contatori dei cicli fossero uguali salterò il passaggio di confronto, dato che darebbero come risultato sempre vero
+                if (i != j)
+                {
+                    if (array[i] == array[j])
+                    {
+                        name[rip] = array[i];
+                        rip++;
+                    }
+                }
+            }
+        }
+
+        //nel caso non ci siano stringhe ripetute cambierò in falso il valore della variabile booleana
+        if (rip == 0)
+        {
+            ripetizioni = false;
+        }
+
+        //e ne ritorno il valore per il controllo
+        return ripetizioni;
+    }
+
+    //funzione che conta quante ripetizioni di ogni nome di animali ci siano all'interno dell'array
+    static int contarip()
+    {
+        return 0;
     }
 
     //funzione di visualizzazione
