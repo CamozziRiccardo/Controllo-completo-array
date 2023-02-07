@@ -46,7 +46,7 @@ internal class Program
         {
             //inserimento scelta per il menù
             Console.Write("1 - aggiunta stringa \n2 - cancellazione della prima stringa di un nome di animale \n3 - ordinamento array \n4 - ricerca sequenziale di una stringa \n5 - Visualizzazione degli animali ripetuti \n6 - modifica di una stringa \n7 - visualizzazione dell'array \n8 - ricerca del nome più lungo e più corto \n9 - cancellazione di tutte le stringhe di un nome di animale \n10 - Uscità dal menù \n");
-            Console.WriteLine("Premere uno dei seguenti tasti per selezionare l'operazione desiderata:");
+            Console.Write("Premere uno dei seguenti tasti per selezionare l'operazione desiderata:");
             scelta = int.Parse(Console.ReadLine());
             Console.Clear();                                        //cancellamento della console
 
