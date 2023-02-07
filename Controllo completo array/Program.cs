@@ -60,7 +60,7 @@ internal class Program
                     temp = Console.ReadLine();
 
                     //chiamata alla funzione di aggiunta e controllo se l'array è pieno
-                    if (agg(ref array, temp, ref dim))
+                    if (Agg(ref array, temp, ref dim))
                     {
                         Console.WriteLine("Elemento inserito");
                     }
@@ -81,7 +81,7 @@ internal class Program
                     temp = Console.ReadLine();
 
                     //chiamata alla funzione di cancellazione e controllo se l'elemento esiste nell'array o meno
-                    if (canc(ref array, temp, ref dim))
+                    if (Canc(ref array, temp, ref dim))
                     {
                         Console.WriteLine("L'elemento è stato cancellato correttamente");
                     }
@@ -98,7 +98,7 @@ internal class Program
                 case 3:
 
                     //richiamo funzione di ordinamento
-                    bubblesort(dim, ref array);
+                    Bubblesort(dim, ref array);
 
                     break;
 
@@ -112,7 +112,7 @@ internal class Program
                     //variabile posizione ricercata
                     int pos = 0;
 
-                    if (search(ref pos, temp, array, dim))
+                    if (Search(ref pos, temp, array, dim))
                     {
                         Console.WriteLine($"L'elemento si trovava in posizione {pos + 1}");
                     }
@@ -134,19 +134,22 @@ internal class Program
                     //array di stringhe che segna i nomi delle variabili ripetute
                     string[] name = new string[dim];
 
+                    //array che segna il numero di ripetizioni per ogni parola
+                    int[] ripet = new int[dim];
+
                     //controllo che ci siano delle ripetizione all'intenro dell'array
-                    if(rip(array, dim, ref ripetizioni, ref name))
+                    if(Rip(array, dim, ref ripetizioni, ref name))
                     {
-                        contarip();
+                        Contarip(array, dim, ref ripetizioni, ref name, ref ripet);
                         Console.Write("I nomi di animali ripetuti sono ");
                         for (int i = 0; i < ripetizioni; i++)
                         {
-                            Console.Write($"{name[i]} ");
-                            if (i + 1 == ripetizioni)
+                            Console.Write($"{name[i]} con {ripet[i]} ripetizioni");
+                            if (i + 2 == ripetizioni)
                             {
                                 Console.Write("e ");
                             }
-                            else
+                            else if (i + 2 < ripetizioni)
                             {
                                 Console.Write(", ");
                             }
@@ -171,7 +174,7 @@ internal class Program
                     Console.WriteLine("Inserisci la stringa che vuoi che venga modificata: ");
                     temp = Console.ReadLine();
 
-                    if (search(ref posiz, temp, array, dim))
+                    if (Search(ref posiz, temp, array, dim))
                     {
                         Console.WriteLine("Modifica la stringa: ");
                         array[posiz] = Console.ReadLine();
@@ -190,11 +193,24 @@ internal class Program
                 case 7:
 
                     //richiamo alla funzione di visualizzazione
-                    visualizza(dim, array);
+                    Visualizza(dim, array);
+
                     break;
 
                 //ricerca del nome più lungo e corto
                 case 8:
+
+                    //dichiarazine variabili che salvano il nome più corto e più lungo
+                    string Long = "";
+                    string Short = "";
+
+                    //richiamo alla funzione che faccia visualizzare il valore più lungo e più corto
+                    Ls(ref Long, ref Short, array, dim);
+
+                    //output del nome più lungo e più corto
+                    Console.WriteLine($"La stringa con maggior numero di caratteri è {Long} mentre quella con minor numero di caratteri è {Short}");
+
+                    Thread.Sleep(2500);
 
                     break;
 
@@ -211,7 +227,7 @@ internal class Program
     }
 
     //funzione di aggiunta
-    static bool agg (ref string[] array, string temp, ref int index)
+    static bool Agg (ref string[] array, string temp, ref int index)
     {
         //dichiarazione variabile booleana per controllare se l'array è pieno o meno
         bool pienezza = true;
@@ -232,7 +248,7 @@ internal class Program
     }
 
     //funzione di cancellamento
-    static bool canc (ref string[] array, string temp, ref int index)
+    static bool Canc (ref string[] array, string temp, ref int index)
     {
         //dichiarazione variabile booleana per la conferma dell'esistenza della stringa
         bool esistenza = false;
@@ -261,7 +277,7 @@ internal class Program
     }
 
     //funzione di ordinamento
-    static int bubblesort (int dim, ref string[] array)
+    static int Bubblesort (int dim, ref string[] array)
     {
         //dichiarazione variabile temporanea
         string temp;
@@ -288,7 +304,7 @@ internal class Program
     }
 
     //funzione di ricerca sequenziale
-    static bool search(ref int pos, string temp, string[] array, int dim )
+    static bool Search(ref int pos, string temp, string[] array, int dim )
     {
         //variabile che dichiara l'esistenza della stringa inserita
         bool esistenza = true;
@@ -310,7 +326,7 @@ internal class Program
     }
 
     //funzione che segna le ripetizioni all'interno dell'array
-    static bool rip(string[] array, int dim, ref int rip, ref string[] name)
+    static bool Rip(string[] array, int dim, ref int Rip, ref string[] name)
     {
         //variabile che dichiara l'esistenza di ripetizione all'interno dell'array
         bool ripetizioni = true;
@@ -325,15 +341,15 @@ internal class Program
                 {
                     if (array[i] == array[j])
                     {
-                        name[rip] = array[i];
-                        rip++;
+                        name[Rip] = array[i];
+                        Rip++;
                     }
                 }
             }
         }
 
         //nel caso non ci siano stringhe ripetute cambierò in falso il valore della variabile booleana
-        if (rip == 0)
+        if (Rip == 0)
         {
             ripetizioni = false;
         }
@@ -343,13 +359,36 @@ internal class Program
     }
 
     //funzione che conta quante ripetizioni di ogni nome di animali ci siano all'interno dell'array
-    static int contarip()
+    static int Contarip(string[] array, int dim, ref int Rip, ref string[] name, ref int[] ripet)
     {
+        //ciclo che conti le ripetizioni per ogni parola
+        for(int i = 0; i < Rip; i++)
+        {
+            //ciclo che controlli se nell'array che conserva i nomi ci sia lo stesso nome
+            for (int j = 0; j < Rip; j++)
+            {
+                if (i != j)
+                {
+                    if (name[i] == name[j])
+                    {
+                        //ciclo per spostamento dei valori
+                        for (int k = 0; k < Rip; k++)
+                        {
+                            name[k] = name[k + 1];
+                        }
+
+                        Rip--;
+                        ripet[i]++;
+                    }
+                }
+            }
+        }
+
         return 0;
     }
 
     //funzione di visualizzazione
-    static int visualizza(int dim, string[] array)
+    static int Visualizza(int dim, string[] array)
     {
         for (int i = 0; i < dim; i++)
         {
@@ -357,6 +396,34 @@ internal class Program
         }
 
         Thread.Sleep(2500);
+        return 0;
+    }
+
+    //funzione che calcoli il valore più lungo e più corto
+    static int Ls(ref string Long, ref string Short, string[] array, int dim)
+    {
+        //creazione di un array ausiliare da ordinare in modo
+        string[] copia = array;
+
+        //ciclo che ordini l'array ausiliare in base alla lunghezza
+        for (int i = 0; i < dim - 1; i++)
+        {
+            for (int j = 0; j < dim - 1 - i; j++)
+            {
+                if (String.Compare(copia[j], copia[j + 1]) < 0)
+                {
+                    string temp = copia[j];
+                    copia[j] = copia[j + 1];
+                    copia[j + 1] = temp;
+                }
+            }
+        }
+
+        //inserimento della stringa nell'indice 0 della copia in Short e della stringa nell'indice equivalente a dim in Long
+        Short = copia[0];
+        Long = copia[dim - 1];
+
+        //ritorno al programma principale
         return 0;
     }
 }
